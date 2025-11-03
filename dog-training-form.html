@@ -360,7 +360,8 @@
                     <button type="button">Group Classes</button>
                     <button type="button">I'm not sure</button>
                 </div>
-            
+                
+                
                 
                 <h2>Your Availability</h2>
                 <p><small>My dog and I are available for training at the following times:</small></p>
@@ -413,6 +414,11 @@
             console.log('Closing modal...');
             modalOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
+            
+            // Tell parent window to restore scrolling and hide iframe
+            if (window.parent !== window) {
+                window.parent.postMessage('closeDogTrainingForm', '*');
+            }
         }
 
         // Listen for messages from parent page to open modal
