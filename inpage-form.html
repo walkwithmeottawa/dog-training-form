@@ -403,7 +403,7 @@
 
             // Create email body
             const emailBody = `
-New Dog Training Enquiry
+New Dog Training Inquiry - InPage Form
 
 CONTACT INFORMATION:
 Name: ${formData.name}
@@ -413,7 +413,7 @@ Email: ${formData.email}
 Phone: ${formData.phone}
 Preferred Contact Method: ${formData.contactMethod.join(' and ') || 'Not specified'}
 
-ENQUIRY DETAILS:
+INQUIRY DETAILS:
 Help Needed: ${formData.help}
 
 PREFERENCES:
@@ -440,6 +440,7 @@ Times: ${formData.availabilityTimes.join(', ') || 'Not selected'}
                 '_subject': 'New Dog Training Enquiry from ' + formData.name,
                 '_captcha': 'false',
                 '_template': 'table',
+                '_next': 'https://walkwithmeottawa.com/training',
                 'message': emailBody
             };
 
