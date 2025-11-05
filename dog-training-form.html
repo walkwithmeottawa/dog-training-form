@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Training Enquiry Form</title>
+    <title>Dog Training Inquiry Form</title>
     <style>
         * {
             margin: 0;
@@ -341,7 +341,7 @@
                     <div class="medium-10 medium-centered column form-holder">
                 <h2>Contact Us</h2>
                 <p class="big">Hello, my name is <span contenteditable="true" class="color1" id="name" data-placeholder="your name"></span>. I live in <span contenteditable="true" class="color2" id="place" data-placeholder="neighbourhood"></span> with my dog, whose name is <span contenteditable="true" class="color3" id="dogname" data-placeholder="dog's name"></span>.</p>
-                <p class="big">I would like to enquire about receiving help with <span contenteditable="true" class="color4" id="help" data-placeholder="describe issue"></span>.</p>
+                <p class="big">I would like to inquire about receiving help with <span contenteditable="true" class="color4" id="help" data-placeholder="describe issue"></span>.</p>
                 <p class="big">I can be contacted via email: <span contenteditable="true" class="color1" id="email" data-placeholder="your@email.com"></span>, and phone <span contenteditable="true" class="color2" id="phone" data-placeholder="phone number"></span>.</p>
                 
                 <h2>Preferred Contact Method</h2>
@@ -352,7 +352,7 @@
                 </div>
                 
                 <h2>Preferred Service</h2>
-                <p><small>I have read your <a href="https://walkwithmeottawa.com/training" target="_blank">services</a>, and I would like to enquire about:</small></p>
+                <p><small>I have read your <a href="https://walkwithmeottawa.com/training" target="_blank">services</a>, and I would like to inquire about:</small></p>
                 <div class="button-options" id="select-service">
                     <button type="button">Private Lessons</button>
                     <button type="button">Day School</button>
@@ -383,7 +383,7 @@
             </div>
             <div class="column">
                 <div class="success-message" id="success-message">
-                    Thank you! Your enquiry has been submitted successfully. We'll be in touch soon!
+                    Thank you! Your inquiry has been submitted successfully. We'll be in touch soon!
                 </div>
                 <div class="error-message" id="error-message">
                     There was an error submitting your form. Please try again or email us directly at info@walkwithmeottawa.com
@@ -548,7 +548,7 @@
 
             // Create email body
             const emailBody = `
-New Dog Training Enquiry
+New Dog Training Inquiry
 
 CONTACT INFORMATION:
 Name: ${formData.name}
@@ -558,7 +558,7 @@ Email: ${formData.email}
 Phone: ${formData.phone}
 Preferred Contact Method: ${formData.contactMethod.join(' and ') || 'Not specified'}
 
-ENQUIRY DETAILS:
+INQUIRY DETAILS:
 Help Needed: ${formData.help}
 
 PREFERENCES:
@@ -582,7 +582,7 @@ Times: ${formData.availabilityTimes.join(', ') || 'Not selected'}
 
             // Add form fields
             const fields = {
-                '_subject': 'New Dog Training Enquiry from ' + formData.name,
+                '_subject': 'New Dog Training Inquiry from ' + formData.name,
                 '_captcha': 'false',
                 '_template': 'table',
                 'message': emailBody
