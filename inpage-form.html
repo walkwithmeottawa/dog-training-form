@@ -24,11 +24,6 @@
             margin: 0 auto;
         }
 
-        #form {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
         .form-holder {
             margin-bottom: 40px;
         }
@@ -310,15 +305,13 @@
     </div>
 
     <script>
-        // Handle single-select buttons (Service and Program)
+        // Handle single-select buttons (Service)
         document.querySelectorAll('.button-options').forEach(container => {
             container.querySelectorAll('button').forEach(button => {
                 button.addEventListener('click', function() {
-                    // Remove selected class from all buttons in this container
                     container.querySelectorAll('button').forEach(btn => {
                         btn.classList.remove('selected');
                     });
-                    // Add selected class to clicked button
                     this.classList.add('selected');
                 });
             });
@@ -328,7 +321,6 @@
         document.querySelectorAll('.button-options-multiple').forEach(container => {
             container.querySelectorAll('button').forEach(button => {
                 button.addEventListener('click', function() {
-                    // Toggle selected class
                     this.classList.toggle('selected');
                 });
             });
@@ -340,7 +332,6 @@
             const successMessage = document.getElementById('success-message');
             const errorMessage = document.getElementById('error-message');
             
-            // Hide any previous messages
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
 
@@ -354,7 +345,6 @@
                 phone: document.getElementById('phone').textContent.trim(),
                 contactMethod: [],
                 service: '',
-                program: '',
                 availabilityDays: [],
                 availabilityTimes: []
             };
@@ -363,12 +353,6 @@
             const selectedService = document.querySelector('#select-service button.selected');
             if (selectedService) {
                 formData.service = selectedService.textContent;
-            }
-
-            // Get selected program
-            const selectedProgram = document.querySelector('#select-package button.selected');
-            if (selectedProgram) {
-                formData.program = selectedProgram.textContent;
             }
 
             // Get selected contact methods
@@ -386,14 +370,13 @@
                 formData.availabilityTimes.push(btn.textContent);
             });
 
-            // Basic validation
+            // Validation
             if (!formData.name || !formData.email) {
                 errorMessage.textContent = 'Please fill in at least your name and email address.';
                 errorMessage.style.display = 'block';
                 return;
             }
 
-            // Validate email format
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(formData.email)) {
                 errorMessage.textContent = 'Please enter a valid email address.';
@@ -401,91 +384,65 @@
                 return;
             }
 
-            // Create email body
-            const emailBody = `
-New Dog Training Inquiry - InPage Form
-
-CONTACT INFORMATION:
-Name: ${formData.name}
-Location: ${formData.place}
-Dog's Name: ${formData.dogname}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Preferred Contact Method: ${formData.contactMethod.join(' and ') || 'Not specified'}
-
-INQUIRY DETAILS:
-Help Needed: ${formData.help}
-
-PREFERENCES:
-Preferred Service: ${formData.service || 'Not selected'}
-Preferred Program: ${formData.program || 'Not selected'}
-
-AVAILABILITY:
-Days: ${formData.availabilityDays.join(', ') || 'Not selected'}
-Times: ${formData.availabilityTimes.join(', ') || 'Not selected'}
-            `.trim();
-
-            // Disable submit button
             submitButton.disabled = true;
             submitButton.textContent = 'SENDING...';
 
-            // Send using FormSubmit.co (free email service)
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'https://formsubmit.co/info@walkwithmeottawa.com';
-            form.style.display = 'none';
-
-            // Add form fields
-            const fields = {
-                '_subject': 'New Dog Training Inquiry from ' + formData.name,
-                '_captcha': 'false',
-                '_template': 'box',
-                '_next': 'https://walkwithmeottawa.github.io/dog-training-form/thankyou-inpage.html',
-                'message': emailBody
-            };
-
-            for (const [key, value] of Object.entries(fields)) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = value;
-                form.appendChild(input);
-            }
-
-            document.body.appendChild(form);
-            
-            // Show success message
-            successMessage.style.display = 'block';
-            
-            // Reset form after short delay
-            setTimeout(function() {
-                document.getElementById('name').textContent = '';
-                document.getElementById('place').textContent = '';
-                document.getElementById('dogname').textContent = '';
-                document.getElementById('help').textContent = '';
-                document.getElementById('email').textContent = '';
-                document.getElementById('phone').textContent = '';
+            // Send to Basin
+            fetch('https://usebasin.com/f/e99ee4d6c80b', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    location: formData.place,
+                    dogname: formData.dogname,
+                    help: formData.help,
+                    contactMethod: formData.contactMethod.join(' and '),
+                    service: formData.service,
+                    availabilityDays: formData.availabilityDays.join(', '),
+                    availabilityTimes: formData.availabilityTimes.join(', ')
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                successMessage.style.display = 'block';
                 
-                // Clear button selections
-                document.querySelectorAll('button.selected').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                
-                // Reset submit button
+                // Reset form
+                setTimeout(function() {
+                    document.getElementById('name').textContent = '';
+                    document.getElementById('place').textContent = '';
+                    document.getElementById('dogname').textContent = '';
+                    document.getElementById('help').textContent = '';
+                    document.getElementById('email').textContent = '';
+                    document.getElementById('phone').textContent = '';
+                    
+                    document.querySelectorAll('button.selected').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'SUBMIT';
+                    
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }, 500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.textContent = 'There was an error submitting your form. Please try again or email us directly at info@walkwithmeottawa.com';
+                errorMessage.style.display = 'block';
                 submitButton.disabled = false;
                 submitButton.textContent = 'SUBMIT';
-                
-                // Hide success message after 5 seconds
-                setTimeout(function() {
-                    successMessage.style.display = 'none';
-                }, 5000);
-            }, 500);
-            
-            // Submit form in background
-            form.submit();
+            });
         });
 
-        // Add placeholder behavior for contenteditable spans
+        // Placeholder behavior
         document.querySelectorAll('span[contenteditable]').forEach(span => {
             span.addEventListener('focus', function() {
                 if (this.textContent === this.getAttribute('data-placeholder')) {
