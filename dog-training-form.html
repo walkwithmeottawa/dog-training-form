@@ -13,89 +13,10 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: transparent;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            overflow: hidden;
-        }
-
-        /* Modal Overlay */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 10000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        /* Modal Content */
-        .modal-content {
-            background-color: #4a4a4a;
-            width: 66.666%;
-            max-width: 1000px;
-            margin: 40px auto;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            background-color: #ffffff;
+            color: #333333;
             padding: 40px 20px;
-        }
-
-        /* Close Button */
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 32px;
-            cursor: pointer;
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease;
-        }
-
-        .modal-close:hover {
-            transform: scale(1.2);
-        }
-
-        /* Trigger Button */
-        .modal-trigger {
-            display: none; /* Hidden - user will use their own button */
-            background-color: #00b1af;
-            color: #ffffff;
-            border: none;
-            padding: 18px 40px;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            border-radius: 4px;
-            margin: 20px;
-        }
-
-        .modal-trigger:hover {
-            background-color: #009290;
-            transform: translateY(-2px);
+            line-height: 1.6;
         }
 
         #form {
@@ -114,10 +35,11 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             padding: 12px 24px;
-            border: 2px solid #ffffff;
+            border: 2px solid #333333;
             display: block;
             margin: 40px auto 30px;
             width: fit-content;
+            color: #333333;
         }
 
         p.big {
@@ -125,15 +47,17 @@
             line-height: 1.6;
             margin-bottom: 30px;
             font-weight: 300;
+            color: #333333;
         }
 
         p small {
             font-size: 16px;
             line-height: 1.5;
+            color: #666666;
         }
 
         p small a {
-            color: #ffffff;
+            color: #00b1af;
             text-decoration: underline;
         }
 
@@ -148,12 +72,12 @@
         }
 
         span[contenteditable]:focus {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(0, 177, 175, 0.05);
         }
 
         span[contenteditable]:empty:before {
             content: attr(data-placeholder);
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(0, 0, 0, 0.3);
         }
 
         .color1 {
@@ -191,9 +115,9 @@
 
         .button-options button,
         .button-options-multiple button {
-            background-color: #e8e8e8;
+            background-color: #f5f5f5;
             color: #333333;
-            border: none;
+            border: 2px solid #e0e0e0;
             padding: 15px 30px;
             font-size: 16px;
             font-weight: 500;
@@ -204,7 +128,8 @@
 
         .button-options button:hover,
         .button-options-multiple button:hover {
-            background-color: #d0d0d0;
+            background-color: #e8e8e8;
+            border-color: #00b1af;
             transform: translateY(-2px);
         }
 
@@ -262,17 +187,19 @@
         .column small {
             font-size: 14px;
             line-height: 1.5;
+            color: #666666;
         }
 
         .column small a {
-            color: #ffffff;
+            color: #00b1af;
             text-decoration: underline;
         }
 
         .success-message {
             display: none;
-            background-color: #93e5ab;
-            color: #333333;
+            background-color: #e8f7f7;
+            color: #00695c;
+            border: 2px solid #00b1af;
             padding: 20px;
             text-align: center;
             font-size: 18px;
@@ -283,8 +210,9 @@
 
         .error-message {
             display: none;
-            background-color: #ff6b6b;
-            color: #ffffff;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 2px solid #ef5350;
             padding: 20px;
             text-align: center;
             font-size: 16px;
@@ -293,10 +221,8 @@
         }
 
         @media (max-width: 768px) {
-            .modal-content {
-                width: 95%;
-                padding: 30px 15px;
-                margin: 20px auto;
+            body {
+                padding: 20px 15px;
             }
 
             p.big {
@@ -318,30 +244,16 @@
                 height: 60px;
                 font-size: 14px;
             }
-
-            .modal-close {
-                top: 10px;
-                right: 10px;
-                font-size: 28px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Trigger Button (you can style or hide this as needed) -->
-    <button class="modal-trigger" id="openModal">Book a Training Session</button>
-
-    <!-- Modal Overlay -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            
-            <div id="form">
-                <div class="row">
-                    <div class="medium-10 medium-centered column form-holder">
+    <div id="form">
+        <div class="row">
+            <div class="medium-10 medium-centered column form-holder">
                 <h2>Contact Us</h2>
                 <p class="big">Hello, my name is <span contenteditable="true" class="color1" id="name" data-placeholder="your name"></span>. I live in <span contenteditable="true" class="color2" id="place" data-placeholder="neighbourhood"></span> with my dog, whose name is <span contenteditable="true" class="color3" id="dogname" data-placeholder="dog's name"></span>.</p>
-                <p class="big">I would like to inquire about receiving help with <span contenteditable="true" class="color4" id="help" data-placeholder="describe issue"></span>.</p>
+                <p class="big">I would like to enquire about receiving help with <span contenteditable="true" class="color4" id="help" data-placeholder="describe issue"></span>.</p>
                 <p class="big">I can be contacted via email: <span contenteditable="true" class="color1" id="email" data-placeholder="your@email.com"></span>, and phone <span contenteditable="true" class="color2" id="phone" data-placeholder="phone number"></span>.</p>
                 
                 <h2>Preferred Contact Method</h2>
@@ -352,7 +264,7 @@
                 </div>
                 
                 <h2>Preferred Service</h2>
-                <p><small>I have read your <a href="https://walkwithmeottawa.com/training" target="_blank">services</a>, and I would like to inquire about:</small></p>
+                <p><small>I have read your <a href="https://walkwithmeottawa.com/training" target="_blank">services</a>, and I would like to enquire about:</small></p>
                 <div class="button-options" id="select-service">
                     <button type="button">Private Lessons</button>
                     <button type="button">Day School</button>
@@ -360,8 +272,6 @@
                     <button type="button">Group Classes</button>
                     <button type="button">I'm not sure</button>
                 </div>
-                
-                
                 
                 <h2>Your Availability</h2>
                 <p><small>My dog and I are available for training at the following times:</small></p>
@@ -393,77 +303,15 @@
             </div>
         </div>
     </div>
-        </div>
-    </div>
 
     <script>
-        // Modal functionality
-        const modalOverlay = document.getElementById('modalOverlay');
-        const openModalBtn = document.getElementById('openModal');
-        const closeModalBtn = document.getElementById('closeModal');
-
-        // Function to open modal
-        function openModal() {
-            console.log('Opening modal...');
-            modalOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Function to close modal
-        function closeModal() {
-            console.log('Closing modal...');
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Tell parent window to restore scrolling and hide iframe
-            if (window.parent !== window) {
-                window.parent.postMessage('closeDogTrainingForm', '*');
-            }
-        }
-
-        // Listen for messages from parent page to open modal
-        window.addEventListener('message', function(event) {
-            console.log('Message received:', event.data);
-            if (event.data === 'openDogTrainingForm') {
-                openModal();
-            }
-        });
-
-        // Open modal (in case button is used within iframe)
-        if (openModalBtn) {
-            openModalBtn.addEventListener('click', function() {
-                openModal();
-            });
-        }
-
-        // Close modal when clicking X
-        closeModalBtn.addEventListener('click', function() {
-            closeModal();
-        });
-
-        // Close modal when clicking outside
-        modalOverlay.addEventListener('click', function(e) {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                closeModal();
-            }
-        });
-
-        // Handle single-select buttons (Service and Program)
+        // Handle single-select buttons (Service)
         document.querySelectorAll('.button-options').forEach(container => {
             container.querySelectorAll('button').forEach(button => {
                 button.addEventListener('click', function() {
-                    // Remove selected class from all buttons in this container
                     container.querySelectorAll('button').forEach(btn => {
                         btn.classList.remove('selected');
                     });
-                    // Add selected class to clicked button
                     this.classList.add('selected');
                 });
             });
@@ -473,7 +321,6 @@
         document.querySelectorAll('.button-options-multiple').forEach(container => {
             container.querySelectorAll('button').forEach(button => {
                 button.addEventListener('click', function() {
-                    // Toggle selected class
                     this.classList.toggle('selected');
                 });
             });
@@ -485,7 +332,6 @@
             const successMessage = document.getElementById('success-message');
             const errorMessage = document.getElementById('error-message');
             
-            // Hide any previous messages
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
 
@@ -499,7 +345,6 @@
                 phone: document.getElementById('phone').textContent.trim(),
                 contactMethod: [],
                 service: '',
-                program: '',
                 availabilityDays: [],
                 availabilityTimes: []
             };
@@ -508,12 +353,6 @@
             const selectedService = document.querySelector('#select-service button.selected');
             if (selectedService) {
                 formData.service = selectedService.textContent;
-            }
-
-            // Get selected program
-            const selectedProgram = document.querySelector('#select-package button.selected');
-            if (selectedProgram) {
-                formData.program = selectedProgram.textContent;
             }
 
             // Get selected contact methods
@@ -531,14 +370,13 @@
                 formData.availabilityTimes.push(btn.textContent);
             });
 
-            // Basic validation
+            // Validation
             if (!formData.name || !formData.email) {
                 errorMessage.textContent = 'Please fill in at least your name and email address.';
                 errorMessage.style.display = 'block';
                 return;
             }
 
-            // Validate email format
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(formData.email)) {
                 errorMessage.textContent = 'Please enter a valid email address.';
@@ -546,85 +384,65 @@
                 return;
             }
 
-            // Create email body
-            const emailBody = `
-New Dog Training Inquiry
-
-CONTACT INFORMATION:
-Name: ${formData.name}
-Location: ${formData.place}
-Dog's Name: ${formData.dogname}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Preferred Contact Method: ${formData.contactMethod.join(' and ') || 'Not specified'}
-
-INQUIRY DETAILS:
-Help Needed: ${formData.help}
-
-PREFERENCES:
-Preferred Service: ${formData.service || 'Not selected'}
-Preferred Program: ${formData.program || 'Not selected'}
-
-AVAILABILITY:
-Days: ${formData.availabilityDays.join(', ') || 'Not selected'}
-Times: ${formData.availabilityTimes.join(', ') || 'Not selected'}
-            `.trim();
-
-            // Disable submit button
             submitButton.disabled = true;
             submitButton.textContent = 'SENDING...';
 
-            // Send using FormSubmit.co (free email service)
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'https://formsubmit.co/info@walkwithmeottawa.com';
-            form.style.display = 'none';
-
-            // Add form fields
-            const fields = {
-                '_subject': 'New Dog Training Inquiry from ' + formData.name,
-                '_captcha': 'false',
-                '_template': 'box',
-                'message': emailBody
-            };
-
-            for (const [key, value] of Object.entries(fields)) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = value;
-                form.appendChild(input);
-            }
-
-            document.body.appendChild(form);
-            
-            // Close modal immediately
-            closeModal();
-            
-            // Reset form
-            setTimeout(function() {
-                document.getElementById('name').textContent = '';
-                document.getElementById('place').textContent = '';
-                document.getElementById('dogname').textContent = '';
-                document.getElementById('help').textContent = '';
-                document.getElementById('email').textContent = '';
-                document.getElementById('phone').textContent = '';
+            // Send to Basin
+            fetch('https://usebasin.com/f/e99ee4d6c80b', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    location: formData.place,
+                    dogname: formData.dogname,
+                    help: formData.help,
+                    contactMethod: formData.contactMethod.join(' and '),
+                    service: formData.service,
+                    availabilityDays: formData.availabilityDays.join(', '),
+                    availabilityTimes: formData.availabilityTimes.join(', ')
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                successMessage.style.display = 'block';
                 
-                // Clear button selections
-                document.querySelectorAll('button.selected').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                
-                // Reset submit button
+                // Reset form
+                setTimeout(function() {
+                    document.getElementById('name').textContent = '';
+                    document.getElementById('place').textContent = '';
+                    document.getElementById('dogname').textContent = '';
+                    document.getElementById('help').textContent = '';
+                    document.getElementById('email').textContent = '';
+                    document.getElementById('phone').textContent = '';
+                    
+                    document.querySelectorAll('button.selected').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'SUBMIT';
+                    
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }, 500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.textContent = 'There was an error submitting your form. Please try again or email us directly at info@walkwithmeottawa.com';
+                errorMessage.style.display = 'block';
                 submitButton.disabled = false;
                 submitButton.textContent = 'SUBMIT';
-            }, 500);
-            
-            // Submit form in background
-            form.submit();
+            });
         });
 
-        // Add placeholder behavior for contenteditable spans
+        // Placeholder behavior
         document.querySelectorAll('span[contenteditable]').forEach(span => {
             span.addEventListener('focus', function() {
                 if (this.textContent === this.getAttribute('data-placeholder')) {
