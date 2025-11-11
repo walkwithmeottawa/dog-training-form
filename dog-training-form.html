@@ -248,6 +248,13 @@
     </style>
 </head>
 <body>
+      <!-- Trigger Button (you can style or hide this as needed) -->
+    <button class="modal-trigger" id="openModal">Book a Training Session</button>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
     <div id="form">
         <div class="row">
             <div class="medium-10 medium-centered column form-holder">
@@ -303,8 +310,69 @@
             </div>
         </div>
     </div>
-
+        </div>
+    </div>
     <script>
+
+            // Modal functionality
+        const modalOverlay = document.getElementById('modalOverlay');
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        // Function to open modal
+        function openModal() {
+            console.log('Opening modal...');
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            console.log('Closing modal...');
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Tell parent window to restore scrolling and hide iframe
+            if (window.parent !== window) {
+                window.parent.postMessage('closeDogTrainingForm', '*');
+            }
+        }
+
+        // Listen for messages from parent page to open modal
+        window.addEventListener('message', function(event) {
+            console.log('Message received:', event.data);
+            if (event.data === 'openDogTrainingForm') {
+                openModal();
+            }
+        });
+
+        // Open modal (in case button is used within iframe)
+        if (openModalBtn) {
+            openModalBtn.addEventListener('click', function() {
+                openModal();
+            });
+        }
+
+        // Close modal when clicking X
+        closeModalBtn.addEventListener('click', function() {
+            closeModal();
+        });
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        
         // Handle single-select buttons (Service)
         document.querySelectorAll('.button-options').forEach(container => {
             container.querySelectorAll('button').forEach(button => {
