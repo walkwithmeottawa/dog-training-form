@@ -19,6 +19,86 @@
             line-height: 1.6;
         }
 
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #4a4a4a;
+            width: 66.666%;
+            max-width: 1000px;
+            margin: 40px auto;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            background-color: #ffffff;
+            color: #333333;
+            padding: 40px 20px;
+        }
+
+        /* Close Button */
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Trigger Button */
+        .modal-trigger {
+            display: none; /* Hidden - user will use their own button */
+            background-color: #00b1af;
+            color: #ffffff;
+            border: none;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            border-radius: 4px;
+            margin: 20px;
+        }
+
+        .modal-trigger:hover {
+            background-color: #009290;
+            transform: translateY(-2px);
+            line-height: 1.6;
+        }
+
         #form {
             max-width: 900px;
             margin: 0 auto;
@@ -243,6 +323,13 @@
                 width: 60px;
                 height: 60px;
                 font-size: 14px;
+            }
+
+            
+            .modal-close {
+                top: 10px;
+                right: 10px;
+                font-size: 28px;
             }
         }
     </style>
